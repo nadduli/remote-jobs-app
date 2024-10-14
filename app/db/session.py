@@ -19,10 +19,11 @@ local_session = sessionmaker(
     autoflush=False,
 )
 
+
 async def get_db():
     """
     Dependency to retrieve the current database session.
     Ensures that sessions are properly closed after use.
     """
     async with local_session() as db:
-        yield db 
+        yield db

@@ -3,6 +3,7 @@ from sqlalchemy import Column, String, Enum
 from app.db.base_model import Base
 from app.models.enums import UserRole
 
+
 class User(Base):
     """
     User model that inherits from Base.

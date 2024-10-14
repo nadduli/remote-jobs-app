@@ -9,7 +9,8 @@ from app.models.enums import JobType
 
 class Job(Base):
     """Class Job which inherits from base_model"""
-    __tablename__ = 'jobs'
+
+    __tablename__ = "jobs"
 
     title = Column(String, index=True)
     description = Column(String)

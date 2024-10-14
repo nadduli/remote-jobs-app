@@ -2,7 +2,7 @@
 
 """Enum class for User model"""
 
-import enum 
+import enum
 
 
 class UserRole(enum.Enum):

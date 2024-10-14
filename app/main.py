@@ -22,6 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.on_event("startup")
 async def startup_event():
     """
@@ -30,7 +31,7 @@ async def startup_event():
     try:
         # Directly use AsyncSession here
         async with engine.begin() as conn:  # Ensure we use the engine
-            result = await conn.execute(text('SELECT 1'))
+            result = await conn.execute(text("SELECT 1"))
             print("Database connection successful.")
 
             # Create tables
@@ -38,6 +39,7 @@ async def startup_event():
 
     except Exception as e:
         print(f"Database connection failed: {e}")
+
 
 @app.get("/")
 async def root():

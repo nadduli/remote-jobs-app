@@ -1,4 +1,6 @@
-# seeds/seed_users.py
+#!/usr/bin/python3
+"""user module to seed user table with 100 records"""
+
 import asyncio
 from faker import Faker
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -6,6 +8,7 @@ from app.models.user import User
 from app.db.session import get_db
 
 fake = Faker()
+
 
 async def seed_users(db: AsyncSession, num_users: int = 100):
     """
@@ -16,14 +19,16 @@ async def seed_users(db: AsyncSession, num_users: int = 100):
             username=fake.user_name(),
             email=fake.email(),
             password=fake.password(),
-            role=fake.random_element(elements=('admin', 'employers', 'job_seekers'))
+            role=fake.random_element(elements=("admin", "employers", "job_seekers")),
         )
         db.add(user)
     await db.commit()
 
+
 async def run():
-    async for db in get_db(): 
+    async for db in get_db():
         await seed_users(db)
+
 
 if __name__ == "__main__":
     asyncio.run(run())
