@@ -1,6 +1,4 @@
-#!/usr/bin/python3
-"""Create a seeder script for user model"""
-
+# seeds/seed_users.py
 import asyncio
 from faker import Faker
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -9,11 +7,10 @@ from app.db.session import get_db
 
 fake = Faker()
 
-async def seed_users(db:AsyncSession, num_users: int = 100):
+async def seed_users(db: AsyncSession, num_users: int = 100):
     """
-    function to create 100 users
+    Function to create 100 users.
     """
-    
     for _ in range(num_users):
         user = User(
             username=fake.user_name(),
@@ -25,7 +22,7 @@ async def seed_users(db:AsyncSession, num_users: int = 100):
     await db.commit()
 
 async def run():
-    async with get_db() as db:
+    async for db in get_db(): 
         await seed_users(db)
 
 if __name__ == "__main__":

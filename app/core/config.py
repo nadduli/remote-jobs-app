@@ -3,7 +3,8 @@
 Configuration file that loads environment variables and settings
 """
 
-from pydantic import BaseSettings 
+from pydantic_settings import BaseSettings
+
 
 
 class Settings(BaseSettings):
