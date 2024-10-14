@@ -2,7 +2,7 @@ from sqlalchemy import Column, String
 from app.db.base_model import Base
 
 class Category(Base):
-    """Class to create categories"""
+    """Class category which inherits from base_model"""
 
     __tablename__ = 'categories'
     
