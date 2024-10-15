@@ -6,7 +6,7 @@ Provides functions to interact with the PostgreSQL database asynchronously.
 
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-from app.core.config import settings
+from api.core.config import settings
 
 # Create the asynchronous engine
 engine = create_async_engine(settings.DATABASE_URL, echo=True)

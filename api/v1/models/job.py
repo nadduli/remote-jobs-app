@@ -3,8 +3,8 @@
 
 from sqlalchemy import Column, String, ForeignKey, Enum
 from sqlalchemy.orm import relationship
-from app.db.base_model import Base
-from app.models.enums import JobType
+from .base_model import Base
+from api.v1.models.enums import JobType
 
 
 class Job(Base):

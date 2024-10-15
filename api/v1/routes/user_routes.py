@@ -3,7 +3,7 @@
 FastAPI router for user-related operations.
 """
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_db
 from app.models.user import User
@@ -21,7 +21,7 @@ from app.schemas.user import CreateUser, UserResponse
 router = APIRouter()
 
 
-@router.post("/users/", response_model=UserResponse)
+@router.post("/users/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 async def create_new_user(
     create_user_data: CreateUser, role: UserRole, db: AsyncSession = Depends(get_db)
 ):
@@ -29,8 +29,8 @@ async def create_new_user(
     userExists = await get_user_by_email(db, create_user_data.email)
 
     if userExists:
-        raise HTTPException(status_code=400, detail="Email already registered")
-
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already exists")
+    
     user = await create_user(db, create_user_data, role)
     return UserResponse.model_validate(user)
 

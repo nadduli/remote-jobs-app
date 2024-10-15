@@ -10,7 +10,7 @@ from app.db.base_model import Base
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import text
 from app.models.user import User
-from app.api.user_routes import router as user_router
+from app.api.routes.user_routes import router as user_router
 
 
 app = FastAPI()

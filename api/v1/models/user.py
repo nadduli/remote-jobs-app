@@ -1,7 +1,9 @@
-# models/your_model.py
+#!/usr/bin/python3
+"""User Model"""
+
 from sqlalchemy import Column, String, Enum
-from app.db.base_model import Base
-from app.models.enums import UserRole
+from .base_model import Base
+from .enums import UserRole
 
 
 class User(Base):
