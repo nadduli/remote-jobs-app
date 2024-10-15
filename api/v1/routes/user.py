@@ -18,10 +18,7 @@ from api.v1.services.user import (
 from api.v1.schemas.user import CreateUser, UserResponse
 
 
-user_router = APIRouter(
-    prefix="/users",
-    tags=["Users"]
-    )
+user_router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @user_router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
@@ -32,13 +29,17 @@ async def create_new_user(
     userExists = await get_user_by_email(db, create_user_data.email)
 
     if userExists:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already exists")
-    
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Email already exists"
+        )
+
     user = await create_user(db, create_user_data, role)
     return UserResponse.model_validate(user)
 
 
-@user_router.get("/{user_id}", response_model=UserResponse)
+@user_router.get(
+    "/{user_id}", response_model=UserResponse, status_code=status.HTTP_200_OK
+)
 async def read_user(user_id: str, db: AsyncSession = Depends(get_db)):
     """Retrieve a user by ID."""
     user = await get_user(db, user_id)
@@ -47,7 +48,9 @@ async def read_user(user_id: str, db: AsyncSession = Depends(get_db)):
     return UserResponse.model_validate(user)
 
 
-@user_router.put("/{user_id}", response_model=UserResponse)
+@user_router.put(
+    "/{user_id}", response_model=UserResponse, status_code=status.HTTP_200_OK
+)
 async def update_existing_user(
     user_id: str,
     user_update: CreateUser,
@@ -61,10 +64,14 @@ async def update_existing_user(
     return UserResponse.model_validate(user)
 
 
-@user_router.delete("/{user_id}", response_model=UserResponse)
+@user_router.delete(
+    "/{user_id}", response_model=UserResponse, status_code=status.HTTP_204_NO_CONTENT
+)
 async def remove_user(user_id: str, db: AsyncSession = Depends(get_db)):
     """Delete a user."""
     user = await delete_user(db, user_id)
     if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
     return UserResponse.model_validate(user)
