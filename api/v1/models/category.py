@@ -2,7 +2,7 @@
 """Category module"""
 
 from sqlalchemy import Column, String
-from app.db.base_model import Base
+from .base_model import Base
 
 
 class Category(Base):

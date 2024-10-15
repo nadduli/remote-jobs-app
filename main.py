@@ -5,12 +5,12 @@ Main entry point of the FastAPI application.
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.db.session import get_db, engine
-from app.db.base_model import Base
+from api.db.session import get_db, engine
+from api.v1.models.base_model import Base
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import text
-from app.models.user import User
-from app.api.routes.user_routes import router as user_router
+from api.v1.models.user import User
+from api.v1.routes.user import user_router
 
 
 app = FastAPI()
@@ -43,7 +43,7 @@ async def startup_event():
         print(f"Database connection failed: {e}")
 
 
-app.include_router(user_router, prefix="/api", tags=["users"])
+app.include_router(user_router, prefix="/api/v1")
 
 
 @app.get("/")

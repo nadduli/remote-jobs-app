@@ -4,10 +4,10 @@
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from app.models.user import User
-from app.models.enums import UserRole
-from app.schemas.user import CreateUser
-from app.utils.utils import hash_password
+from api.v1.models.user import User
+from api.v1.models.enums import UserRole
+from api.v1.schemas.user import CreateUser
+from api.utils.utils import hash_password
 
 
 async def create_user(db: AsyncSession, create_user: CreateUser, role: UserRole):
