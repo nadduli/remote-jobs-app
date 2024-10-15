@@ -10,6 +10,8 @@ from app.db.base_model import Base
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import text
 from app.models.user import User
+from app.api.user_routes import router as user_router
+
 
 app = FastAPI()
 
@@ -39,6 +41,9 @@ async def startup_event():
 
     except Exception as e:
         print(f"Database connection failed: {e}")
+
+
+app.include_router(user_router, prefix="/api", tags=["users"])
 
 
 @app.get("/")
